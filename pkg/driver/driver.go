@@ -24,6 +24,7 @@ import (
 	"github.com/goharbor/acceleration-service/pkg/content"
 	"github.com/goharbor/acceleration-service/pkg/driver/estargz"
 	"github.com/goharbor/acceleration-service/pkg/driver/nydus"
+	"github.com/goharbor/acceleration-service/pkg/driver/zstdchunked"
 )
 
 // Driver defines image conversion interface, the following
@@ -52,6 +53,8 @@ func NewLocalDriver(typ string, config map[string]string, platformMC platforms.M
 		return nydus.New(config, platformMC)
 	case "estargz":
 		return estargz.New(config, platformMC)
+	case "zstdchunked":
+		return zstdchunked.New(config, platformMC)
 	default:
 		return nil, fmt.Errorf("unsupported driver %s", typ)
 	}
